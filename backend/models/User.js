@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   userType: { 
     type: String, 
     required: true, 
-    enum: ['citizen', 'law-enforcement', 'municipal-authorities', 'user']  // Add 'user' if needed
+    enum: ['citizen', 'law-enforcement', 'municipal-authority', 'user']  // Add 'user' if needed
   },
 });
 

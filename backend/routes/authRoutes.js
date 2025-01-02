@@ -4,36 +4,31 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const router = express.Router();
 
-// Signup route
 router.post('/signup', async (req, res) => {
   const { email, password, userType } = req.body;
-  
-  // Log incoming request data
-  console.log("Sign-Up Request Received:", req.body);
 
   try {
-    // Check if the user already exists
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      console.log("User already exists:", email);
-      return res.status(400).json({ message: 'User already exists' });
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already registered' });
     }
 
-    // Hash the password before saving it
+    // Hash the password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
-    const newUser = new User({ email, password: hashedPassword, userType });
-    const savedUser = await newUser.save();
+    const newUser = new User({
+      email,
+      password: hashedPassword,
+      userType,
+    });
 
-    console.log("User saved successfully:", savedUser);
-
-    // Generate a JWT token
-    const token = jwt.sign({ userId: savedUser._id, userType }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(201).json({ token });
+    // Save the new user
+    await newUser.save();
+    res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
-    console.error("Error in Sign-Up:", error);
+    console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -41,7 +36,7 @@ router.post('/signup', async (req, res) => {
 // Login route
 router.post('/login', async (req, res) => {
   const { email, password, userType } = req.body;
-  
+
   // Log incoming request data
   console.log("Login Request Received:", req.body);
 
@@ -65,12 +60,15 @@ router.post('/login', async (req, res) => {
 
     console.log("Login successful for user:", email);
 
-    res.status(200).json({ token, redirectPath: `/${userType}/dashboard` }); // Optionally, send a redirect path for the user
+    // Send the response with the token and redirectPath based on userType
+    const redirectPath = `/${userType}/dashboard`;
+    res.status(200).json({ token, redirectPath });
   } catch (error) {
     console.error("Error in Login:", error);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 // Logout route
 router.post('/logout', (req, res) => {

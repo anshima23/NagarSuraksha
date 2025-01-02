@@ -10,12 +10,17 @@ const LoginPage = () => {
   const [isSignUp, setIsSignUp] = useState(false); // Toggle between login and sign up
   const navigate = useNavigate();
 
-  // Handle Login
-  const handleLogin = async (e) => {
+  // Handle Login/SignUp logic
+  const handleAuth = async (e) => {
     e.preventDefault();
 
+    // Choose the correct endpoint based on the isSignUp state
+    const endpoint = isSignUp
+      ? "http://localhost:5000/api/auth/signup"  // For sign up
+      : "http://localhost:5000/api/auth/login";  // For login
+
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +31,7 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        // Successfully logged in, store token and user role
+        // Successfully logged in or signed up
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("userRole", userType);
 
@@ -37,7 +42,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       setErrorMessage("Something went wrong. Please try again later.");
-      console.error("Error during login:", error);
+      console.error("Error during login/signup:", error);
     }
   };
 
@@ -57,7 +62,7 @@ const LoginPage = () => {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       {/* Login/Sign-Up Form */}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleAuth}>
         <div>
           <label>Email</label>
           <input
@@ -76,6 +81,22 @@ const LoginPage = () => {
             required
           />
         </div>
+
+        {/* User Type Selection (only for Login and Sign-Up) */}
+        {isSignUp && (
+          <div>
+            <label>User Type</label>
+            <select
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              required
+            >
+              <option value="citizen">Citizen</option>
+              <option value="law-enforcement">Law Enforcement</option>
+              <option value="municipal-authority">Municipal Authority</option>
+            </select>
+          </div>
+        )}
 
         {/* User Type Selection (only for Login) */}
         {!isSignUp && (
