@@ -1,4 +1,4 @@
-/* Styles for the login page container */
+/* Login Page Container */
 .login-container {
   width: 300px;
   margin: 50px auto;
@@ -9,19 +9,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 400px; /* Ensure the container has enough height */
+  height: 400px;
 }
 
+/* Headings */
 .login-container h2 {
   text-align: center;
 }
 
-.login-container form {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
+/* Form Inputs and Select */
 .login-container input,
 .login-container select {
   margin: 10px 0;
@@ -29,6 +25,7 @@
   font-size: 16px;
 }
 
+/* Buttons */
 .login-container button {
   padding: 10px;
   font-size: 16px;
@@ -38,31 +35,27 @@
   cursor: pointer;
 }
 
-.login-container .error-message {
+.login-container button:hover {
+  background-color: #45a049;
+}
+
+/* Error Message */
+.error-message {
   color: red;
   text-align: center;
 }
 
-.auth-links {
-  text-align: center;
-}
-
-.auth-links button {
+/* Toggle Button */
+.auth-toggle-button {
   margin-top: 10px;
-  padding: 10px;
   font-size: 16px;
-  background-color: #4CAF50;
+  background-color: #008CBA;
   color: white;
   border: none;
+  padding: 10px;
   cursor: pointer;
 }
 
-.auth-links p {
-  margin-top: 5px;
-  font-size: 14px;
-  color: #555;
-}
-
-.auth-links button:hover {
-  background-color: #45a049;
+.auth-toggle-button:hover {
+  background-color: #007bb5;
 }

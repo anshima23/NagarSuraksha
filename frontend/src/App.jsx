@@ -48,21 +48,32 @@ const App = () => {
 
   return (
     <div>
-      {/* Only show the Navbar if the user is logged in */}
+      {/* Show the Navbar if the user is logged in */}
       {isLoggedIn && <Navbar />}
 
       <Routes>
-        {/* Default route: If user is not logged in, they are redirected to login */}
-        <Route path="/login" element={<LoginPage />} />
+        {/* Login Page */}
+        <Route
+          path="/login"
+          element={
+            <LoginPage setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />
+          }
+        />
 
-        {/* Redirect any other undefined route to login */}
+        {/* Redirect root to login */}
         <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* Protected Routes - Only accessible if logged in */}
-        <Route path="/citizen/dashboard" element={ <Home />} />
-        <Route path="/law-enforcement/dashboard" element={<LawEnforcementDashboard />} />
-        <Route path="/municipal-authorities/dashboard" element={<MunicipalDashboard />} />
-        
+        {/* Protected Routes */}
+        <Route path="/citizen/dashboard" element={<Home />} />
+        <Route
+          path="/law-enforcement/dashboard"
+          element={<LawEnforcementDashboard />}
+        />
+        <Route
+          path="/municipal-authorities/dashboard"
+          element={<MunicipalDashboard />}
+        />
+
         {/* Catch-all redirect to login */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
