@@ -9,6 +9,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 /* Style for the heading */
@@ -43,17 +44,32 @@ nav {
   text-decoration: underline;
 }
 
-/* Style for the Login link */
+/* Style for the Login/Logout link */
 .login-link {
-  margin-right: 20px;
+  margin-left: auto; /* Align the Login/Logout link to the right */
 }
 
-.login-link a {
+.login-link a,
+.logout-button {
   color: white;
   text-decoration: none;
   font-size: 16px;
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 5px;
 }
 
-.login-link a:hover {
+.login-link a:hover,
+.logout-button:hover {
   text-decoration: underline;
+}
+
+/* Styling for the Logout button */
+.logout-button {
+  background-color: #e74c3c; /* Red color for logout button */
+  border: none;
+}
+
+.logout-button:hover {
+  background-color: #c0392b; /* Darker red for hover */
 }

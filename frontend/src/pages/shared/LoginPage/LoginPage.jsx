@@ -7,9 +7,10 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [userType, setUserType] = useState("citizen");
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false); // Toggle between login and sign up
   const navigate = useNavigate();
 
+  // Handle Login
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -25,26 +26,37 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.status === 200) {
+        // Successfully logged in, store token and user role
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("userRole", userType);
+
+        // Redirect to the appropriate dashboard based on user type
         navigate(`/${userType}/dashboard`);
       } else {
-        setErrorMessage(data.message);
+        setErrorMessage(data.message || "Invalid credentials. Please try again.");
       }
     } catch (error) {
       setErrorMessage("Something went wrong. Please try again later.");
+      console.error("Error during login:", error);
     }
   };
 
+  // Handle Sign Up Toggle
   const handleSignUpToggle = () => {
-    setIsSignUp(!isSignUp);
+    setIsSignUp(!isSignUp); // Toggle between login and signup
+    setErrorMessage(""); // Clear error message when toggling
+    setEmail(""); // Clear email field when toggling
+    setPassword(""); // Clear password field when toggling
   };
 
   return (
     <div className="login-container">
       <h2>{isSignUp ? "Sign Up" : "Login"}</h2>
+
+      {/* Error message display */}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
+      {/* Login/Sign-Up Form */}
       <form onSubmit={handleLogin}>
         <div>
           <label>Email</label>
@@ -64,6 +76,8 @@ const LoginPage = () => {
             required
           />
         </div>
+
+        {/* User Type Selection (only for Login) */}
         {!isSignUp && (
           <div>
             <label>User Type</label>
@@ -78,9 +92,11 @@ const LoginPage = () => {
             </select>
           </div>
         )}
+
         <button type="submit">{isSignUp ? "Sign Up" : "Login"}</button>
       </form>
 
+      {/* Switch between Login and Sign Up */}
       <div className="auth-links">
         <button onClick={handleSignUpToggle}>
           {isSignUp ? "Switch to Login" : "Switch to Sign Up"}
