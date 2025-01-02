@@ -7,17 +7,16 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [userType, setUserType] = useState("citizen");
-  const [isSignUp, setIsSignUp] = useState(false); // Toggle between login and sign up
+  const [isSignUp, setIsSignUp] = useState(false); // Toggle between login and signup
   const navigate = useNavigate();
 
-  // Handle Login/SignUp logic
   const handleAuth = async (e) => {
     e.preventDefault();
 
-    // Choose the correct endpoint based on the isSignUp state
+    // Choose the correct endpoint based on isSignUp state
     const endpoint = isSignUp
-      ? "http://localhost:5000/api/auth/signup"  // For sign up
-      : "http://localhost:5000/api/auth/login";  // For login
+      ? "http://localhost:5000/api/auth/signup" // For sign up
+      : "http://localhost:5000/api/auth/login"; // For login
 
     try {
       const response = await fetch(endpoint, {
@@ -30,13 +29,25 @@ const LoginPage = () => {
 
       const data = await response.json();
 
-      if (response.status === 200) {
-        // Successfully logged in or signed up
+      if (response.ok) {
+        // Store token and user role in local storage
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("userRole", userType);
 
-        // Redirect to the appropriate dashboard based on user type
-        navigate(`/${userType}/dashboard`);
+        // Redirect directly to the specific dashboard
+        switch (userType) {
+          case "citizen":
+            navigate("/citizen/dashboard");
+            break;
+          case "law-enforcement":
+            navigate("/law-enforcement/dashboard");
+            break;
+          case "municipal-authority":
+            navigate("/municipal-authorities/dashboard");
+            break;
+          default:
+            navigate("/login");
+        }
       } else {
         setErrorMessage(data.message || "Invalid credentials. Please try again.");
       }
@@ -46,12 +57,11 @@ const LoginPage = () => {
     }
   };
 
-  // Handle Sign Up Toggle
   const handleSignUpToggle = () => {
     setIsSignUp(!isSignUp); // Toggle between login and signup
-    setErrorMessage(""); // Clear error message when toggling
-    setEmail(""); // Clear email field when toggling
-    setPassword(""); // Clear password field when toggling
+    setErrorMessage(""); // Clear error message
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -82,37 +92,19 @@ const LoginPage = () => {
           />
         </div>
 
-        {/* User Type Selection (only for Login and Sign-Up) */}
-        {isSignUp && (
-          <div>
-            <label>User Type</label>
-            <select
-              value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-              required
-            >
-              <option value="citizen">Citizen</option>
-              <option value="law-enforcement">Law Enforcement</option>
-              <option value="municipal-authority">Municipal Authority</option>
-            </select>
-          </div>
-        )}
-
-        {/* User Type Selection (only for Login) */}
-        {!isSignUp && (
-          <div>
-            <label>User Type</label>
-            <select
-              value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-              required
-            >
-              <option value="citizen">Citizen</option>
-              <option value="law-enforcement">Law Enforcement</option>
-              <option value="municipal-authority">Municipal Authority</option>
-            </select>
-          </div>
-        )}
+        {/* User Type Selection */}
+        <div>
+          <label>User Type</label>
+          <select
+            value={userType}
+            onChange={(e) => setUserType(e.target.value)}
+            required
+          >
+            <option value="citizen">Citizen</option>
+            <option value="law-enforcement">Law Enforcement</option>
+            <option value="municipal-authority">Municipal Authority</option>
+          </select>
+        </div>
 
         <button type="submit">{isSignUp ? "Sign Up" : "Login"}</button>
       </form>

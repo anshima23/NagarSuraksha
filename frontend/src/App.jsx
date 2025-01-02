@@ -59,9 +59,9 @@ const App = () => {
         <Route path="/" element={<Navigate to="/login" />} />
 
         {/* Protected Routes - Only accessible if logged in */}
-        <Route path="/citizen/dashboard" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
-        <Route path="/law-enforcement/dashboard" element={isLoggedIn ? <LawEnforcementDashboard /> : <Navigate to="/login" />} />
-        <Route path="/municipal-authorities/dashboard" element={isLoggedIn ? <MunicipalDashboard /> : <Navigate to="/login" />} />
+        <Route path="/citizen/dashboard" element={ <Home />} />
+        <Route path="/law-enforcement/dashboard" element={<LawEnforcementDashboard />} />
+        <Route path="/municipal-authorities/dashboard" element={<MunicipalDashboard />} />
         
         {/* Catch-all redirect to login */}
         <Route path="*" element={<Navigate to="/login" />} />
