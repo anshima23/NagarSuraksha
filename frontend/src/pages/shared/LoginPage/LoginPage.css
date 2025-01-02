@@ -1,0 +1,68 @@
+/* Styles for the login page container */
+.login-container {
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 400px; /* Ensure the container has enough height */
+}
+
+.login-container h2 {
+  text-align: center;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.login-container input,
+.login-container select {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.login-container button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.login-container .error-message {
+  color: red;
+  text-align: center;
+}
+
+.auth-links {
+  text-align: center;
+}
+
+.auth-links button {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.auth-links p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+.auth-links button:hover {
+  background-color: #45a049;
+}

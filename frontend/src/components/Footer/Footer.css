@@ -1,0 +1,29 @@
+.footer {
+  background-color: #003366; /* Dark Blue */
+  color: white;
+  padding: 30px 0; /* Padding for a spacious look */
+  text-align: center; /* Center-align text horizontally */
+}
+
+.footer p {
+  font-size: 1.2rem; /* Slightly larger text for readability */
+  margin-left: 38%;
+}
+
+.footer .social-icons {
+  display: flex;
+  justify-content: center; /* Center icons horizontally */
+  gap: 20px; /* Even spacing between icons */
+  margin-top: 20px; /* Spacing above social icons */
+}
+
+.footer .social-icons a {
+  font-size: 1.5rem; /* Larger icons */
+  color: #ffcc00; /* Yellow for icons */
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.footer .social-icons a:hover {
+  color: #ffc107; /* Softer yellow on hover for icons */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}

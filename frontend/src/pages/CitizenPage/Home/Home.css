@@ -1,0 +1,153 @@
+/* Home Page Styles */
+.hero-section {
+    background-color: #1e40af; /* Blue background */
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Arrange items in a vertical column */
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
+    padding: 50px 0;
+    height: 90vh; /* Adjusts the height of the hero section */
+  }
+  
+  
+  
+  .hero-section h1 {
+    font-size: 5rem;
+    font-weight: bold;
+  }
+  
+  .hero-section p {
+    margin-top: 10px;
+    font-size: 1.55rem;
+  }
+  
+  .hero-section button {
+    margin-top: 30px;
+    background-color: #fbbf24; /* Yellow background */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .hero-section button:hover {
+    background-color: #f59e0b; /* Darker yellow */
+  }
+  
+  .features-section {
+    background-color: #f3f4f6; /* Light gray background */
+    padding: 50px 0;
+  }
+  
+  .features-section .container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center the content horizontally */
+    text-align: center;
+  }
+  
+  .features-section .he {
+    margin-bottom: 30px; /* Space between heading and feature cards */
+  }
+  
+  .features-section h2 {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  
+  .features-section .feature-cards {
+    display: flex;
+    justify-content: center; /* Center the cards horizontally */
+    gap: 30px; /* Adjust gap between cards */
+    max-width: 2000px; /* Set a maximum width for the feature cards container */
+    margin: 0 auto; /* Center the feature cards container */
+  }
+  
+  
+  .feature-cards {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-basis: 30%; /* Cards will take 30% of the container width */
+    text-align: center; /* Center content in each card */
+    margin-bottom: 20px; /* Space between rows of cards */
+  }
+  
+  .feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .feature-card p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .about-section {
+    background-color: #107572;
+    padding: 100px 0; /* Increased padding for vertical space */
+    min-height: 600px; /* Ensures a minimum height for the container */
+  }
+  
+  .about-section .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+  }
+  
+  .about-section h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  
+  .about-section .content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; /* Align items to the top */
+    justify-content: space-between;
+   width: 1800px;
+    margin: 0 auto;
+    margin-top: 3%;
+    gap: 50px; /* Increase gap between the image and description */
+  }
+  
+  .about-section .content img {
+    width: 60%; /* Increase image width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover;
+    border-radius: 8px; /* Rounded corners */
+    margin-left: -20; /* Image starts from the leftmost corner */
+  }
+  
+  .about-section .content .description {
+    flex: 1; /* Take up remaining space */
+    margin-top: 10%;
+    margin-left: 5%; /* Create space from the middle partition */
+    text-align: left;
+  }
+  
+  .about-section .content .description p {
+    font-size: 1.2rem; /* Slightly larger text for better readability */
+    line-height: 1.8;
+    color: black;
+  }
+  
+  @media (max-width: 768px) {
+    .about-section .content {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px; /* Reduce gap on smaller screens */
+    }
+  
+    .about-section .content img,
+    .about-section .content .description {
+      width: 100%;
+      margin-left: 0;
+      text-align: center;
+    }
+  }

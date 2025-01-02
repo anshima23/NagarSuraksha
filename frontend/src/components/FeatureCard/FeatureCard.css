@@ -1,0 +1,27 @@
+.feature-card {
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for card */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px;
+  width: 350px; /* Increased width */
+  height: 200px; /* Increased height */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px); /* Lift the card slightly on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+}
+
+.feature-card h3 {
+  font-size: 1.5rem; /* Slightly larger title font */
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333; /* Dark color for the title */
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: #666; /* Lighter color for the description text */
+  line-height: 1.5;
+}
