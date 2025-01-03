@@ -42,7 +42,9 @@ const App = () => {
   return (
     <div>
       {/* Show the Navbar if the user is logged in */}
-      {isLoggedIn && <Navbar setIsLoggedIn={setIsLoggedIn} />}
+      {isLoggedIn && (
+        <Navbar setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />
+      )}
 
       <Routes>
         {/* Login Page */}

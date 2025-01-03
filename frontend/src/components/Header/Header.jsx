@@ -1,22 +1,27 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
-import LogoutButton from "../LogoutButton/LogoutButton";
 
-const Navbar = () => {
+const Navbar = ({ setIsLoggedIn }) => {
   const userRole = localStorage.getItem("userRole");
   const token = localStorage.getItem("authToken"); // Check if the user is logged in
   const location = useLocation(); // Get current location to highlight active link
   const navigate = useNavigate(); // To redirect the user after logging out
 
   // Function to determine if a link is active
-  const isActive = (path) => location.pathname === path ? "active" : "";
+  const isActive = (path) => (location.pathname === path ? "active" : "");
 
   // Handle Log Out
   const handleLogout = () => {
+    // Clear localStorage
     localStorage.removeItem("authToken");
     localStorage.removeItem("userRole");
-    navigate("/login"); // Redirect to login page after logout
+
+    // Update the logged-in state
+    setIsLoggedIn(false);
+
+    // Redirect to login page
+    navigate("/login");
   };
 
   return (
