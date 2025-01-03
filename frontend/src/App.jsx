@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 // Import your components
-import Navbar from "./components/Header/Header";
+import Navbar from "./components/Header/Header"; // Updated Navbar import
 import Footer from "./components/Footer/Footer";
 import LoginPage from "./pages/shared/LoginPage/LoginPage";
 import Home from "./pages/CitizenPage/Home/Home";
@@ -30,26 +30,19 @@ const App = () => {
   // Redirect to the appropriate dashboard page after login
   useEffect(() => {
     if (isLoggedIn && userRole) {
-      switch (userRole) {
-        case "citizen":
-          navigate("/citizen/dashboard");
-          break;
-        case "law-enforcement":
-          navigate("/law-enforcement/dashboard");
-          break;
-        case "municipal-authority":
-          navigate("/municipal-authorities/dashboard");
-          break;
-        default:
-          navigate("/login");
-      }
+      const dashboardPaths = {
+        citizen: "/citizen/dashboard",
+        "law-enforcement": "/law-enforcement/dashboard",
+        "municipal-authority": "/municipal-authorities/dashboard",
+      };
+      navigate(dashboardPaths[userRole] || "/login");
     }
   }, [isLoggedIn, userRole, navigate]);
 
   return (
     <div>
       {/* Show the Navbar if the user is logged in */}
-      {isLoggedIn && <Navbar />}
+      {isLoggedIn && <Navbar setIsLoggedIn={setIsLoggedIn} />}
 
       <Routes>
         {/* Login Page */}

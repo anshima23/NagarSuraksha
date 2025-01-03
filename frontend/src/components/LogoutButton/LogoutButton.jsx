@@ -1,19 +1,24 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LogoutButton = () => {
+const LogoutButton = ({ setIsLoggedIn }) => {
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       // Sending the logout request to the backend
-      const response = await axios.post('http://localhost:5000/api/auth/logout', {});
-      console.log(response.data); // Log the success message from the server
+      await axios.post('http://localhost:5000/api/auth/logout');
 
-      // Optionally, remove token from localStorage or sessionStorage if you're using it
-      localStorage.removeItem('token');  // If you're using localStorage
-      sessionStorage.removeItem('token');  // If you're using sessionStorage
+      // Clear localStorage or sessionStorage
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userRole');
 
-      // Redirect to login or home page
-      window.location.href = '/login';  // Or any redirect URL you prefer
+      // Update the global state
+      setIsLoggedIn(false);
+
+      // Redirect to login page
+      navigate('/login');
     } catch (error) {
       console.error("Logout failed:", error);
     }
