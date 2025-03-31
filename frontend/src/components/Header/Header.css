@@ -10,6 +10,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  position: relative;
 }
 
 /* Style for the heading */
@@ -18,6 +19,8 @@ nav {
   font-size: 24px;
   margin: 0;
   padding-left: 20px;
+  position: absolute;
+  left: 20px;
 }
 
 /* Style for the Navbar Links */
@@ -26,10 +29,12 @@ nav {
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
+  flex: 1;
 }
 
+/* Center align links within the header bar */
 .navbar-links li {
   display: inline;
 }
@@ -46,7 +51,8 @@ nav {
 
 /* Style for the Login/Logout link */
 .login-link {
-  margin-left: auto; /* Align the Login/Logout link to the right */
+  position: absolute;
+  right: 20px; /* Align the Login/Logout link to the right */
 }
 
 .login-link a,

@@ -1,81 +1,46 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-
-// Import your components
-import Navbar from "./components/Header/Header"; // Updated Navbar import
-import Footer from "./components/Footer/Footer";
-import LoginPage from "./pages/shared/LoginPage/LoginPage";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Header/Header";
 import Home from "./pages/CitizenPage/Home/Home";
-import LawEnforcementDashboard from "./pages/LawEnforcementPage/LawEnforcementDashboard/LawEnforcementDashboard";
-import MunicipalDashboard from "./pages/MunicipalAuthorityPage/MunicipalDashboard/MunicipalDashboard";
+import Dashboard from "./pages/CitizenPage/Dashboard/Dashboard";
+import ReportIssue from "./pages/CitizenPage/ReportIssue/ReportIssue";
+import ViewIssues from "./pages/CitizenPage/Issues/Issue/Issues";
+import Institutions from "./pages/CitizenPage/Initiatives/Initiatives";
+import LoginPage from "./pages/shared/LoginPage/LoginPage";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(null);
-  const navigate = useNavigate();
-
-  // Check if the user is logged in when the app is first loaded
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    const storedUserRole = localStorage.getItem("userRole");
-
-    if (token && storedUserRole) {
-      setUserRole(storedUserRole);
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
-
-  // Redirect to the appropriate dashboard page after login
-  useEffect(() => {
-    if (isLoggedIn && userRole) {
-      const dashboardPaths = {
-        citizen: "/citizen/dashboard",
-        "law-enforcement": "/law-enforcement/dashboard",
-        "municipal-authority": "/municipal-authorities/dashboard",
-      };
-      navigate(dashboardPaths[userRole] || "/login");
-    }
-  }, [isLoggedIn, userRole, navigate]);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("authToken"));
 
   return (
-    <div>
-      {/* Show the Navbar if the user is logged in */}
-      {isLoggedIn && (
-        <Navbar setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />
-      )}
-
+    // Ensure Router is only used once
+    <Router>
+      <Navbar setIsLoggedIn={setIsLoggedIn} />
       <Routes>
-        {/* Login Page */}
-        <Route
-          path="/login"
-          element={
-            <LoginPage setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />
-          }
-        />
+        {/* Citizen Routes */}
+        <Route path="/citizen/home" element={<Home />} />
+        <Route path="/citizen/dashboard" element={<Dashboard />} />
+        <Route path="/citizen/report-issue" element={<ReportIssue />} />
+        <Route path="/citizen/view-issues" element={<ViewIssues />} />
+        <Route path="/citizen/institutions" element={<Institutions />} />
 
-        {/* Redirect root to login */}
-        <Route path="/" element={<Navigate to="/login" />} />
+        {/* Law Enforcement Routes */}
+        <Route path="/law-enforcement/dashboard" element={<Dashboard />} />
+        <Route path="/law-enforcement/view-crime-reports" element={<ViewIssues />} />
+        <Route path="/law-enforcement/update-crime-status" element={<ReportIssue />} />
 
-        {/* Protected Routes */}
-        <Route path="/citizen/dashboard" element={<Home />} />
-        <Route
-          path="/law-enforcement/dashboard"
-          element={<LawEnforcementDashboard />}
-        />
-        <Route
-          path="/municipal-authorities/dashboard"
-          element={<MunicipalDashboard />}
-        />
+        {/* Municipal Authority Routes */}
+        <Route path="/municipal-authorities/dashboard" element={<Dashboard />} />
+        <Route path="/municipal-authorities/resolve-civic-issues" element={<ViewIssues />} />
+        <Route path="/municipal-authorities/assign-tasks" element={<ReportIssue />} />
 
-        {/* Catch-all redirect to login */}
-        <Route path="*" element={<Navigate to="/login" />} />
+        {/* Authentication Route */}
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* Fallback for undefined routes */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
-
-      {/* Footer always visible */}
-      <Footer />
-    </div>
+    </Router>
   );
 };
 

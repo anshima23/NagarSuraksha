@@ -16,11 +16,11 @@ const Home = () => {
         </Link>
       </section>
 
-      {/*Feature section*/}
+      {/* Feature Section */}
       <section className="features-section">
         <div className="container mx-auto text-center">
           <div className="he">
-            <h2>Our Feature</h2>
+            <h2>Our Features</h2>
           </div>
           <div className="feature-cards">
             <FeatureCard
@@ -48,10 +48,9 @@ const Home = () => {
             <div className="description">
               <p>
                 NagarSuraksha is a civic engagement platform that enables citizens
-                to report safety concerns, track the resolution of issues, and
-                actively engage with their community. It empowers users to connect
-                with local authorities, promote transparency, and contribute to
-                building safer neighborhoods.
+                to report safety concerns, track issue resolution, and actively
+                engage with their community. Connect with local authorities, promote
+                transparency, and contribute to safer neighborhoods.
               </p>
             </div>
           </div>
